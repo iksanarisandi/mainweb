@@ -25,6 +25,19 @@ async function proxyToBackend(request, backendUrl) {
   try {
     const url = new URL(request.url);
     
+    // Handle CORS preflight OPTIONS request
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        status: 204,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
+        }
+      });
+    }
+    
     // Create new URL with backend domain
     const targetUrl = backendUrl + url.pathname + url.search;
     
@@ -39,13 +52,27 @@ async function proxyToBackend(request, backendUrl) {
     // Forward to backend
     const response = await fetch(modifiedRequest);
     
-    // Return response with CORS headers
-    const newResponse = new Response(response.body, response);
-    newResponse.headers.set('access-control-allow-origin', '*');
+    // Clone response and add CORS headers
+    const newResponse = new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers
+    });
+    
+    // Set CORS headers
+    newResponse.headers.set('Access-Control-Allow-Origin', '*');
+    newResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    newResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     
     return newResponse;
   } catch (error) {
     console.error('Proxy error:', error);
-    return new Response('Proxy error: ' + error.message, { status: 500 });
+    return new Response(JSON.stringify({ error: 'Proxy error: ' + error.message }), { 
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
 }
