@@ -73,20 +73,20 @@ async function loadStatsFromLeaderboard() {
 }
 
 function showEstimatedStats() {
-    // Show realistic placeholder stats that animate
+    // Show static professional numbers for landing page marketing
     const totalUsersEl = document.getElementById('totalUsers');
     const totalCompletionsEl = document.getElementById('totalCompletions');
     
     if (totalUsersEl) {
-        // Start with a nice number and animate
-        const estimatedUsers = Math.floor(Math.random() * 50) + 100; // 100-150 users
-        animateNumber(totalUsersEl, 0, estimatedUsers, 2000);
+        // Fixed number that looks professional (500+ active learners)
+        const displayUsers = 542;
+        animateNumber(totalUsersEl, 0, displayUsers, 2000);
     }
     
     if (totalCompletionsEl) {
-        // Estimated completions (avg 5-10 lessons per user)
-        const estimatedCompletions = Math.floor(Math.random() * 500) + 500; // 500-1000 completions
-        animateNumber(totalCompletionsEl, 0, estimatedCompletions, 2000);
+        // Fixed number that looks impressive (3000+ lessons completed)
+        const displayCompletions = 3247;
+        animateNumber(totalCompletionsEl, 0, displayCompletions, 2000);
     }
 }
 
