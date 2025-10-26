@@ -44,13 +44,35 @@ app.route('/api/leaderboard', leaderboardRoutes);
 app.route('/api/profile', profileRoutes);
 app.route('/api/admin', adminRoutes);
 
+// DEBUG: List R2 contents (REMOVE IN PRODUCTION!)
+app.get('/debug/r2-list', async (c) => {
+  try {
+    const listed = await c.env.STORAGE.list({ prefix: 'avatars/', limit: 100 });
+    return c.json({
+      objects: listed.objects.map(obj => ({
+        key: obj.key,
+        size: obj.size,
+        uploaded: obj.uploaded
+      })),
+      truncated: listed.truncated,
+      total: listed.objects.length
+    });
+  } catch (error) {
+    return c.json({ error: error.message }, 500);
+  }
+});
+
 // Serve R2 storage files (avatars, etc)
 app.get('/storage/*', async (c) => {
   const path = c.req.path.replace('/storage/', '');
   const object = await c.env.STORAGE.get(path);
   
   if (!object) {
-    return c.notFound();
+    return c.json({ 
+      error: 'File not found',
+      path: path,
+      hint: 'Check /debug/r2-list to see available files'
+    }, 404);
   }
   
   const headers = new Headers();
