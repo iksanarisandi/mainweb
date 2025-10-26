@@ -188,7 +188,11 @@
     }
     
     .progress-ring {
-        display: none; /* Hide ring */
+        display: none !important; /* Hide ring */
+    }
+    
+    .progress-percentage {
+        display: none !important; /* Hide desktop percentage */
     }
     
     /* Show progress bar instead */
@@ -217,11 +221,6 @@
         color: var(--primary);
         margin-top: 8px;
         font-size: 14px;
-    }
-    
-    /* Hide desktop progress elements */
-    .progress-percentage {
-        display: none;
     }
     
     /* Hide Badges on Mobile */
