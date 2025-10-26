@@ -106,24 +106,22 @@ function displayLeaderboardList(users) {
         const rank = index + 4; // Starting from 4th place
         const isCurrentUser = currentUser && currentUser.id === user.id;
         const avatarUrl = user.avatar_url || user.avatar;
+        const firstLetter = user.username ? user.username.charAt(0).toUpperCase() : '?';
         
         return `
             <div class="leaderboard-item ${isCurrentUser ? 'current-user' : ''}">
-                <div class="rank-number">#${rank}</div>
-                <div class="user-avatar-small">
+                <span class="leaderboard-rank">#${rank}</span>
+                <div class="leaderboard-avatar">
                     ${avatarUrl ? 
                         `<img src="${avatarUrl}" alt="${user.username}">` : 
-                        user.username.charAt(0).toUpperCase()
+                        firstLetter
                     }
                 </div>
-                <div class="user-details">
-                    <div class="user-name">${user.username}</div>
-                    <div class="user-stats-small">
-                        <span>🏆 Level ${user.level || 1}</span>
-                        <span>🔥 Streak ${user.current_streak || user.currentStreak || 0}</span>
-                    </div>
+                <div class="leaderboard-info">
+                    <div class="leaderboard-username">${user.username}</div>
+                    <div class="leaderboard-level">Level ${user.level || 1}</div>
                 </div>
-                <div class="user-points-large">${user.points || user.totalPoints || 0} poin</div>
+                <div class="leaderboard-points">${user.points || user.totalPoints || 0} poin</div>
             </div>
         `;
     }).join('');

@@ -81,10 +81,18 @@ function displayUserInfo(user) {
     document.getElementById('completedLessons').textContent = user.completedLessons || 0;
     
     // Update avatar if exists
-    if (user.avatar) {
-        document.getElementById('avatarImg').src = user.avatar;
-        document.getElementById('avatarImg').style.display = 'block';
-        document.getElementById('avatarPlaceholder').style.display = 'none';
+    const avatarUrl = user.avatar || user.avatar_url;
+    const avatarImg = document.getElementById('avatarImg');
+    const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+    
+    if (avatarUrl && avatarImg && avatarPlaceholder) {
+        avatarImg.src = avatarUrl;
+        avatarImg.style.display = 'block';
+        avatarPlaceholder.style.display = 'none';
+    } else if (avatarPlaceholder) {
+        // Show first letter of username if no avatar
+        const firstLetter = user.username ? user.username.charAt(0).toUpperCase() : '?';
+        avatarPlaceholder.textContent = firstLetter;
     }
     
     // Display recent badges

@@ -41,10 +41,17 @@ function displayProfile(user) {
     
     // Update avatar
     const avatarUrl = user.avatar || user.avatar_url;
-    if (avatarUrl) {
-        document.getElementById('avatarImage').src = avatarUrl;
-        document.getElementById('avatarImage').style.display = 'block';
-        document.getElementById('avatarPlaceholderLarge').style.display = 'none';
+    const avatarImage = document.getElementById('avatarImage');
+    const avatarPlaceholder = document.getElementById('avatarPlaceholderLarge');
+    
+    if (avatarUrl && avatarImage && avatarPlaceholder) {
+        avatarImage.src = avatarUrl;
+        avatarImage.style.display = 'block';
+        avatarPlaceholder.style.display = 'none';
+    } else if (avatarPlaceholder) {
+        // Show first letter of username if no avatar
+        const firstLetter = user.username ? user.username.charAt(0).toUpperCase() : '?';
+        avatarPlaceholder.textContent = firstLetter;
     }
 }
 
