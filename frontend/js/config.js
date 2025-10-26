@@ -1,5 +1,6 @@
 // API Configuration
-const API_URL = 'https://mainweb-workers.threadsauto.workers.dev/api';
+// Use relative URLs to route through _worker.js proxy (CORS-enabled)
+const API_URL = '/api'; // Relative URL = same origin, goes through Pages _worker.js
 
 const config = {
     apiUrl: API_URL,
