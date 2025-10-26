@@ -191,8 +191,10 @@ Built with ❤️ using:
 
 ---
 
-**Live Demo:** https://mainweb-workers.threadsauto.workers.dev
+## 🌐 Live URLs
 
-**Repository:** https://github.com/iksanarisandi/mainweb
+- **Frontend:** https://077a263e.mainweb-2i7.pages.dev
+- **Backend API:** https://mainweb-workers.threadsauto.workers.dev
+- **GitHub Repository:** https://github.com/iksanarisandi/mainweb
 
 Made with 🚀 by the Main Web Team
