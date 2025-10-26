@@ -3,6 +3,12 @@ main = "src/index.ts"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Routes for custom domain
+routes = [
+  { pattern = "mainweb2.akses.digital/api/*", zone_name = "akses.digital" },
+  { pattern = "mainweb2.akses.digital/storage/*", zone_name = "akses.digital" }
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "mainweb-db"
