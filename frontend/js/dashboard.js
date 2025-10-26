@@ -29,25 +29,36 @@ function setupHamburgerMenu() {
     const navActions = document.getElementById('navActions');
     
     if (hamburger && navActions) {
-        hamburger.addEventListener('click', () => {
+        // Add both click and touchstart for mobile compatibility
+        const toggleMenu = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             hamburger.classList.toggle('active');
             navActions.classList.toggle('active');
-        });
+        };
+        
+        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('touchstart', toggleMenu, { passive: false });
         
         // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
+        const closeMenu = (e) => {
             if (!hamburger.contains(e.target) && !navActions.contains(e.target)) {
                 hamburger.classList.remove('active');
                 navActions.classList.remove('active');
             }
-        });
+        };
+        
+        document.addEventListener('click', closeMenu);
+        document.addEventListener('touchstart', closeMenu);
         
         // Close menu when clicking a link
         navActions.querySelectorAll('.nav-link, .btn-logout').forEach(link => {
-            link.addEventListener('click', () => {
+            const closeLinkMenu = () => {
                 hamburger.classList.remove('active');
                 navActions.classList.remove('active');
-            });
+            };
+            link.addEventListener('click', closeLinkMenu);
+            link.addEventListener('touchstart', closeLinkMenu);
         });
     }
 }

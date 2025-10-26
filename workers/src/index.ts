@@ -44,4 +44,21 @@ app.route('/api/leaderboard', leaderboardRoutes);
 app.route('/api/profile', profileRoutes);
 app.route('/api/admin', adminRoutes);
 
+// Serve R2 storage files (avatars, etc)
+app.get('/storage/*', async (c) => {
+  const path = c.req.path.replace('/storage/', '');
+  const object = await c.env.STORAGE.get(path);
+  
+  if (!object) {
+    return c.notFound();
+  }
+  
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  headers.set('etag', object.httpEtag);
+  headers.set('cache-control', 'public, max-age=31536000');
+  
+  return new Response(object.body, { headers });
+});
+
 export default app;
