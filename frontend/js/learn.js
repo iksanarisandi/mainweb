@@ -148,22 +148,113 @@ function runCode() {
     const code = document.getElementById('codeEditor').value;
     const preview = document.getElementById('previewFrame');
     
-    const previewContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body { margin: 10px; font-family: Arial, sans-serif; }
-            </style>
-        </head>
-        <body>
-            ${code}
-        </body>
-        </html>
-    `;
-    
-    preview.srcdoc = previewContent;
+    // Check if this is JavaScript material
+    if (currentMaterial && currentMaterial.category === 'JavaScript') {
+        // For JavaScript: capture console output
+        const previewContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { 
+                        margin: 0;
+                        padding: 10px; 
+                        font-family: 'Consolas', 'Courier New', monospace; 
+                        background: #1e1e1e;
+                        color: #d4d4d4;
+                        font-size: 14px;
+                        line-height: 1.6;
+                    }
+                    .console-line {
+                        padding: 4px 0;
+                        word-wrap: break-word;
+                    }
+                    .console-error {
+                        color: #f48771;
+                    }
+                    .console-warn {
+                        color: #dcdcaa;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="output"></div>
+                <script>
+                    const output = document.getElementById('output');
+                    
+                    function formatValue(val) {
+                        if (val === null) return 'null';
+                        if (val === undefined) return 'undefined';
+                        if (typeof val === 'string') return val;
+                        if (typeof val === 'object') {
+                            try {
+                                return JSON.stringify(val, null, 2);
+                            } catch (e) {
+                                return String(val);
+                            }
+                        }
+                        return String(val);
+                    }
+                    
+                    // Override console methods to capture output
+                    console.log = function(...args) {
+                        const line = document.createElement('div');
+                        line.className = 'console-line';
+                        line.textContent = args.map(formatValue).join(' ');
+                        output.appendChild(line);
+                    };
+                    
+                    console.error = function(...args) {
+                        const line = document.createElement('div');
+                        line.className = 'console-line console-error';
+                        line.textContent = '❌ ' + args.map(formatValue).join(' ');
+                        output.appendChild(line);
+                    };
+                    
+                    console.warn = function(...args) {
+                        const line = document.createElement('div');
+                        line.className = 'console-line console-warn';
+                        line.textContent = '⚠️ ' + args.map(formatValue).join(' ');
+                        output.appendChild(line);
+                    };
+                    
+                    console.info = function(...args) {
+                        const line = document.createElement('div');
+                        line.className = 'console-line';
+                        line.textContent = 'ℹ️ ' + args.map(formatValue).join(' ');
+                        output.appendChild(line);
+                    };
+                    
+                    // Execute user code
+                    try {
+                        ${code}
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+                <\/script>
+            </body>
+            </html>
+        `;
+        preview.srcdoc = previewContent;
+    } else {
+        // For HTML/CSS: inject directly as HTML
+        const previewContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { margin: 10px; font-family: Arial, sans-serif; }
+                </style>
+            </head>
+            <body>
+                ${code}
+            </body>
+            </html>
+        `;
+        preview.srcdoc = previewContent;
+    }
 }
 
 function showHint() {
