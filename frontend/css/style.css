@@ -22,11 +22,31 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-main);
     color: var(--text-primary);
     line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+/* Responsive Images and Media */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Prevent horizontal overflow on all elements */
+* {
+    max-width: 100%;
 }
 
 /* Buttons */
@@ -95,6 +115,9 @@ body {
     top: 0;
     z-index: 100;
     box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .nav-brand {
@@ -502,6 +525,9 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .nav-link {
@@ -533,7 +559,9 @@ body {
     gap: 32px;
     padding: 32px 5%;
     max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .sidebar {
@@ -944,7 +972,9 @@ body {
     gap: 32px;
     padding: 32px 5%;
     max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .lesson-sidebar {
@@ -1259,8 +1289,10 @@ body {
 /* Leaderboard */
 .leaderboard-container {
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
     padding: 32px 20px;
+    box-sizing: border-box;
 }
 
 .leaderboard-header {
@@ -1590,8 +1622,10 @@ body {
 /* Profile */
 .profile-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 32px 20px;
+    box-sizing: border-box;
 }
 
 .profile-header {
@@ -1901,6 +1935,9 @@ body {
     display: grid;
     grid-template-columns: 250px 1fr;
     min-height: calc(100vh - 70px);
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .admin-sidebar {
