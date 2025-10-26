@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <a href="index.html" class="back-link">← Kembali</a>
+            
+            <div class="auth-box">
+                <div class="auth-header">
+                    <span class="logo">🚀</span>
+                    <h1>Mulai Petualangan!</h1>
+                    <p>Daftar gratis dan mulai belajar sekarang</p>
+                </div>
+
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="johndoe" required minlength="3">
+                        <small>Minimal 3 karakter</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="nama@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                        <small>Minimal 6 karakter</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Konfirmasi Password</label>
+                        <input type="password" id="confirmPassword" placeholder="••••••••" required minlength="6">
+                    </div>
+
+                    <div id="errorMessage" class="error-message"></div>
+
+                    <button type="submit" class="btn-primary btn-full">
+                        Daftar Sekarang
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Sudah punya akun? <a href="login.html">Masuk</a></p>
+                </div>
+            </div>
+
+            <div class="auth-illustration">
+                <div class="benefit-list">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✅</span>
+                        <span>37+ Materi Gratis</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✅</span>
+                        <span>Live Code Editor</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✅</span>
+                        <span>Badge & Achievements</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✅</span>
+                        <span>Leaderboard Global</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

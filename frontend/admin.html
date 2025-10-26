@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin-page">
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <span class="logo">🚀</span>
+            <span class="brand-name">Admin Panel</span>
+        </div>
+        <div class="nav-actions">
+            <a href="dashboard.html" class="btn-secondary">← Dashboard</a>
+            <button id="logoutBtn" class="btn-logout">Keluar</button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-menu">
+                <button class="admin-menu-item active" data-section="stats">
+                    📊 Statistik
+                </button>
+                <button class="admin-menu-item" data-section="materials">
+                    📚 Materi
+                </button>
+                <button class="admin-menu-item" data-section="users">
+                    👥 Users
+                </button>
+                <button class="admin-menu-item" data-section="badges">
+                    🏆 Badges
+                </button>
+            </div>
+        </aside>
+
+        <main class="admin-content">
+            <!-- Stats Section -->
+            <div id="statsSection" class="admin-section active">
+                <h1>Statistik Platform</h1>
+                <div class="stats-grid">
+                    <div class="stat-card-admin">
+                        <div class="stat-icon-admin">👥</div>
+                        <div class="stat-info-admin">
+                            <div class="stat-value-admin" id="totalUsersAdmin">0</div>
+                            <div class="stat-label-admin">Total Users</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-admin">
+                        <div class="stat-icon-admin">📚</div>
+                        <div class="stat-info-admin">
+                            <div class="stat-value-admin" id="totalMaterialsAdmin">0</div>
+                            <div class="stat-label-admin">Total Materi</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-admin">
+                        <div class="stat-icon-admin">✅</div>
+                        <div class="stat-info-admin">
+                            <div class="stat-value-admin" id="totalCompletionsAdmin">0</div>
+                            <div class="stat-label-admin">Completions</div>
+                        </div>
+                    </div>
+                    <div class="stat-card-admin">
+                        <div class="stat-icon-admin">🏆</div>
+                        <div class="stat-info-admin">
+                            <div class="stat-value-admin" id="totalBadgesAdmin">0</div>
+                            <div class="stat-label-admin">Total Badges</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Materials Section -->
+            <div id="materialsSection" class="admin-section">
+                <div class="section-header">
+                    <h1>Manajemen Materi</h1>
+                    <button id="addMaterialBtn" class="btn-primary">+ Tambah Materi</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Level</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materialsTableBody">
+                            <tr><td colspan="7">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="usersSection" class="admin-section">
+                <h1>Manajemen Users</h1>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Level</th>
+                                <th>Points</th>
+                                <th>Streak</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td colspan="8">Loading...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Badges Section -->
+            <div id="badgesSection" class="admin-section">
+                <div class="section-header">
+                    <h1>Manajemen Badges</h1>
+                    <button id="addBadgeBtn" class="btn-primary">+ Tambah Badge</button>
+                </div>
+                <div id="badgesAdminGrid" class="badges-admin-grid">
+                    <div class="loading">Loading badges...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Material Modal -->
+    <div id="materialModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="materialModalTitle">Tambah Materi</h2>
+                <button class="modal-close" onclick="closeMaterialModal()">&times;</button>
+            </div>
+            <form id="materialForm">
+                <input type="hidden" id="materialId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="materialTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="materialCategory" required>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="DOM">DOM</option>
+                            <option value="Project">Project</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Level *</label>
+                        <select id="materialLevel" required>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Order Index *</label>
+                        <input type="number" id="materialOrder" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Points *</label>
+                        <input type="number" id="materialPoints" value="10" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Content (Markdown) *</label>
+                    <textarea id="materialContent" rows="8" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Code Example</label>
+                    <textarea id="materialCodeExample" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Challenge Question</label>
+                    <input type="text" id="materialChallengeQuestion">
+                </div>
+                <div class="form-group">
+                    <label>Challenge Expected Answer</label>
+                    <textarea id="materialChallengeExpected" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Challenge Hint</label>
+                    <input type="text" id="materialChallengeHint">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="materialStatus">
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeMaterialModal()">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Badge Modal -->
+    <div id="badgeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Badge</h2>
+                <button class="modal-close" onclick="closeBadgeModal()">&times;</button>
+            </div>
+            <form id="badgeForm">
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="badgeName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="badgeDescription" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Icon (Emoji) *</label>
+                    <input type="text" id="badgeIcon" placeholder="🏆" required>
+                </div>
+                <div class="form-group">
+                    <label>Condition Type *</label>
+                    <select id="badgeConditionType" required>
+                        <option value="lessons_completed">Lessons Completed</option>
+                        <option value="points_reached">Points Reached</option>
+                        <option value="streak_days">Streak Days</option>
+                        <option value="category_master">Category Master</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Condition Value *</label>
+                    <input type="number" id="badgeConditionValue" required>
+                </div>
+                <div class="form-group">
+                    <label>Condition Category (optional)</label>
+                    <select id="badgeConditionCategory">
+                        <option value="">None</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                        <option value="JavaScript">JavaScript</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeBadgeModal()">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

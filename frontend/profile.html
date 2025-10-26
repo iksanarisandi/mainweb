@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="profile-page">
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="dashboard.html" class="back-btn">← Dashboard</a>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar-section">
+                <div class="profile-avatar-large" id="profileAvatar">
+                    <img src="" alt="Avatar" id="avatarImage" style="display:none;">
+                    <span id="avatarPlaceholderLarge">👤</span>
+                </div>
+                <label for="avatarUpload" class="btn-upload">📷 Ganti Foto</label>
+                <input type="file" id="avatarUpload" accept="image/*" style="display:none;">
+            </div>
+
+            <div class="profile-info">
+                <h1 id="profileUsername">Loading...</h1>
+                <p class="profile-email" id="profileEmail">email@example.com</p>
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="stat-icon-large">🏆</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="profileLevel">Level 1</div>
+                            <div class="stat-label">Level</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-icon-large">⭐</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="profilePoints">0</div>
+                            <div class="stat-label">Total Poin</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-icon-large">🔥</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="profileStreak">0</div>
+                            <div class="stat-label">Current Streak</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="stat-icon-large">📚</div>
+                        <div class="stat-details">
+                            <div class="stat-value" id="profileCompleted">0</div>
+                            <div class="stat-label">Lessons</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <section class="badges-section">
+                <h2>🏆 Koleksi Badge</h2>
+                <div id="badgesGrid" class="badges-grid">
+                    <div class="loading">Loading badges...</div>
+                </div>
+            </section>
+
+            <section class="streak-section">
+                <h2>🔥 Streak History</h2>
+                <div class="streak-calendar" id="streakCalendar">
+                    <div class="loading">Loading streak history...</div>
+                </div>
+                <div class="streak-stats">
+                    <div class="streak-stat-item">
+                        <span class="label">Current Streak:</span>
+                        <span class="value" id="currentStreakStat">0 hari</span>
+                    </div>
+                    <div class="streak-stat-item">
+                        <span class="label">Longest Streak:</span>
+                        <span class="value" id="longestStreakStat">0 hari</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="recent-activity">
+                <h2>📝 Aktivitas Terakhir</h2>
+                <div id="recentActivity" class="activity-list">
+                    <div class="loading">Loading activity...</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

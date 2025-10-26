@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="learn-page">
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="dashboard.html" class="back-btn">← Dashboard</a>
+        </div>
+        <div class="lesson-progress">
+            <span id="lessonTitle">Loading...</span>
+        </div>
+        <div class="nav-actions">
+            <div class="points-display">
+                <span class="points-icon">⭐</span>
+                <span id="userPoints">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="learn-container">
+        <aside class="lesson-sidebar">
+            <h3>Materi Terkait</h3>
+            <div id="relatedLessons" class="related-lessons">
+                <div class="loading">Loading...</div>
+            </div>
+        </aside>
+
+        <main class="lesson-content">
+            <div class="lesson-header">
+                <div class="lesson-meta">
+                    <span class="lesson-category" id="lessonCategory">HTML</span>
+                    <span class="lesson-level" id="lessonLevel">Beginner</span>
+                </div>
+                <h1 id="lessonMainTitle">Lesson Title</h1>
+            </div>
+
+            <div class="content-section">
+                <h2>📖 Materi</h2>
+                <div id="lessonContent" class="markdown-content">
+                    Loading content...
+                </div>
+            </div>
+
+            <div class="content-section" id="exampleSection">
+                <h2>💡 Contoh Kode</h2>
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span>Live Editor</span>
+                        <button id="runCodeBtn" class="btn-run">▶ Run</button>
+                    </div>
+                    <textarea id="codeEditor" class="code-input" spellcheck="false"></textarea>
+                </div>
+                <div class="code-preview">
+                    <div class="preview-header">Preview</div>
+                    <iframe id="previewFrame" sandbox="allow-scripts"></iframe>
+                </div>
+            </div>
+
+            <div class="content-section" id="challengeSection">
+                <h2>🎯 Tantangan</h2>
+                <div class="challenge-box">
+                    <p id="challengeQuestion">Challenge question here...</p>
+                    <div class="hint-box" id="hintBox" style="display:none;">
+                        <strong>💡 Hint:</strong>
+                        <p id="challengeHint"></p>
+                    </div>
+                    <button id="showHintBtn" class="btn-hint">Tampilkan Hint</button>
+                </div>
+
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span>Jawaban Kamu</span>
+                    </div>
+                    <textarea id="challengeEditor" class="code-input" spellcheck="false" placeholder="Tulis kode kamu di sini..."></textarea>
+                </div>
+
+                <div id="feedbackBox" class="feedback-box" style="display:none;">
+                    <div class="feedback-icon" id="feedbackIcon"></div>
+                    <div class="feedback-text" id="feedbackText"></div>
+                </div>
+
+                <button id="submitChallengeBtn" class="btn-submit">
+                    Kirim Jawaban
+                </button>
+            </div>
+
+            <div class="lesson-navigation">
+                <button id="prevLessonBtn" class="btn-nav" style="display:none;">← Lesson Sebelumnya</button>
+                <button id="nextLessonBtn" class="btn-nav" style="display:none;">Lesson Selanjutnya →</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-animation">
+                <div class="checkmark">✓</div>
+            </div>
+            <h2>Jawaban Benar! 🎉</h2>
+            <div class="reward-display">
+                <div class="reward-item">
+                    <span class="reward-icon">⭐</span>
+                    <span class="reward-value">+<span id="pointsEarned">10</span> Poin</span>
+                </div>
+                <div id="streakReward" class="reward-item" style="display:none;">
+                    <span class="reward-icon">🔥</span>
+                    <span class="reward-value"><span id="streakValue">1</span> Day Streak!</span>
+                </div>
+            </div>
+            <p id="successMessage">Great job!</p>
+            <button class="btn-primary" onclick="closeSuccessModal()">Lanjut!</button>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/learn.js"></script>
+</body>
+</html>

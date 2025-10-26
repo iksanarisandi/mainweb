@@ -1,0 +1,17 @@
+name = "mainweb-workers"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mainweb-db"
+database_id = "5740df67-73d1-49b8-b0b6-c579d4462686"
+
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "mainweb-storage"
+
+[vars]
+JWT_SECRET = "your-jwt-secret-change-this-in-production"
+ADMIN_EMAIL = "iksan10058@gmail.com"

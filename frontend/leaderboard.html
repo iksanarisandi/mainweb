@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body class="leaderboard-page">
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <a href="dashboard.html" class="back-btn">← Dashboard</a>
+        </div>
+        <div class="nav-actions">
+            <button id="shareLeaderboardBtn" class="btn-share">📸 Share</button>
+        </div>
+    </nav>
+
+    <div class="leaderboard-container">
+        <div class="leaderboard-header">
+            <h1>🏆 Leaderboard Global</h1>
+            <p>Lihat ranking para pembelajar terbaik!</p>
+        </div>
+
+        <div class="podium" id="podium">
+            <div class="podium-item podium-2">
+                <div class="podium-avatar">👤</div>
+                <div class="podium-name">-</div>
+                <div class="podium-points">0 poin</div>
+                <div class="podium-stand rank-2">
+                    <div class="rank-number">2</div>
+                </div>
+            </div>
+            <div class="podium-item podium-1">
+                <div class="crown">👑</div>
+                <div class="podium-avatar">👤</div>
+                <div class="podium-name">-</div>
+                <div class="podium-points">0 poin</div>
+                <div class="podium-stand rank-1">
+                    <div class="rank-number">1</div>
+                </div>
+            </div>
+            <div class="podium-item podium-3">
+                <div class="podium-avatar">👤</div>
+                <div class="podium-name">-</div>
+                <div class="podium-points">0 poin</div>
+                <div class="podium-stand rank-3">
+                    <div class="rank-number">3</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard-list" id="leaderboardList">
+            <div class="loading">Loading leaderboard...</div>
+        </div>
+
+        <div class="your-rank" id="yourRank">
+            <div class="rank-badge">Your Rank</div>
+            <div class="rank-info">
+                <span class="rank-position">#-</span>
+                <span class="rank-username">Loading...</span>
+                <span class="rank-points">0 poin</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>

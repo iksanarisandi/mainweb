@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Main Web</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <span class="logo">🚀</span>
+            <span class="brand-name">Main Web</span>
+        </div>
+        <div class="nav-actions">
+            <a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a>
+            <a href="profile.html" class="nav-link">👤 Profil</a>
+            <a href="admin.html" class="nav-link" id="adminLink" style="display:none;">⚙️ Admin Panel</a>
+            <button id="logoutBtn" class="btn-logout">Keluar</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="user-card">
+                <div class="user-avatar" id="userAvatar">
+                    <img src="" alt="Avatar" id="avatarImg" style="display:none;">
+                    <span id="avatarPlaceholder">👤</span>
+                </div>
+                <div class="user-info">
+                    <h3 id="username">Loading...</h3>
+                    <div class="user-level">
+                        <span class="level-badge" id="levelBadge">Level 1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="currentStreak">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalPoints">0</div>
+                        <div class="stat-label">Total Poin</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="completedLessons">0</div>
+                        <div class="stat-label">Lessons Selesai</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-card">
+                <h4>Progress Keseluruhan</h4>
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <circle cx="60" cy="60" r="50" class="progress-ring-circle-bg"></circle>
+                        <circle cx="60" cy="60" r="50" class="progress-ring-circle" id="progressCircle"></circle>
+                    </svg>
+                    <div class="progress-percentage" id="progressPercentage">0%</div>
+                </div>
+            </div>
+
+            <div class="badges-preview">
+                <h4>Badge Terbaru</h4>
+                <div id="recentBadges" class="badge-list">
+                    <p class="empty-state">Belum ada badge</p>
+                </div>
+                <a href="profile.html" class="view-all">Lihat Semua →</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="welcome-banner">
+                <h1>Selamat Datang, <span id="welcomeName">Coder</span>! 👋</h1>
+                <p>Mari lanjutkan petualangan belajar kamu hari ini!</p>
+            </div>
+
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="all">Semua</button>
+                <button class="tab-btn" data-category="HTML">HTML</button>
+                <button class="tab-btn" data-category="CSS">CSS</button>
+                <button class="tab-btn" data-category="JavaScript">JavaScript</button>
+            </div>
+
+            <div class="materials-grid" id="materialsGrid">
+                <div class="loading">Loading materi...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Level Up Modal -->
+    <div id="levelUpModal" class="modal">
+        <div class="modal-content level-up-modal">
+            <div class="confetti">🎉</div>
+            <h2>LEVEL UP!</h2>
+            <div class="level-display">
+                <div class="old-level" id="oldLevel">Level 1</div>
+                <div class="arrow">→</div>
+                <div class="new-level" id="newLevel">Level 2</div>
+            </div>
+            <p>Selamat! Kamu naik level! 🚀</p>
+            <button class="btn-primary" onclick="closeLevelUpModal()">Mantap!</button>
+        </div>
+    </div>
+
+    <!-- Badge Unlock Modal -->
+    <div id="badgeModal" class="modal">
+        <div class="modal-content badge-modal">
+            <h2>Badge Unlocked! 🏆</h2>
+            <div class="badge-icon" id="badgeIcon">🎯</div>
+            <h3 id="badgeName">Badge Name</h3>
+            <p id="badgeDescription">Badge Description</p>
+            <button class="btn-primary" onclick="closeBadgeModal()">Keren!</button>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
