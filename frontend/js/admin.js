@@ -4,6 +4,13 @@ let currentSection = 'stats';
 document.addEventListener('DOMContentLoaded', async () => {
     if (!checkAuth()) return;
     
+    // Check if user has admin role
+    if (!checkAdminRole()) {
+        alert('⛔ Akses Ditolak!\n\nAnda tidak memiliki izin untuk mengakses Admin Panel.\nHanya admin yang dapat mengakses halaman ini.');
+        window.location.href = 'dashboard.html';
+        return;
+    }
+    
     // Setup logout button
     document.getElementById('logoutBtn')?.addEventListener('click', logout);
     
@@ -16,6 +23,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load initial section
     await loadSection('stats');
 });
+
+function checkAdminRole() {
+    const token = getToken();
+    if (!token) return false;
+    
+    try {
+        // Decode JWT token to check role
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        const decoded = JSON.parse(jsonPayload);
+        return decoded.role === 'admin';
+    } catch (e) {
+        console.error('Error decoding token:', e);
+        return false;
+    }
+}
 
 function setupMenuNavigation() {
     const menuItems = document.querySelectorAll('.admin-menu-item');
