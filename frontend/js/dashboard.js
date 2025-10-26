@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Setup logout button
     document.getElementById('logoutBtn')?.addEventListener('click', logout);
     
+    // Setup hamburger menu
+    setupHamburgerMenu();
+    
     // Setup category tabs
     setupCategoryTabs();
     
@@ -19,6 +22,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         loadUserProgress()
     ]);
 });
+
+// Hamburger Menu Toggle
+function setupHamburgerMenu() {
+    const hamburger = document.getElementById('hamburgerMenu');
+    const navActions = document.getElementById('navActions');
+    
+    if (hamburger && navActions) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navActions.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navActions.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navActions.classList.remove('active');
+            }
+        });
+        
+        // Close menu when clicking a link
+        navActions.querySelectorAll('.nav-link, .btn-logout').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navActions.classList.remove('active');
+            });
+        });
+    }
+}
 
 async function loadUserProfile() {
     try {
@@ -132,6 +164,16 @@ function updateProgressDisplay() {
     const offset = circumference - (percentage / 100) * circumference;
     circle.style.strokeDasharray = `${circumference} ${circumference}`;
     circle.style.strokeDashoffset = offset;
+    
+    // Update mobile progress bar
+    const progressBarFill = document.getElementById('progressBarFill');
+    const progressPercentageMobile = document.getElementById('progressPercentageMobile');
+    if (progressBarFill) {
+        progressBarFill.style.width = `${percentage}%`;
+    }
+    if (progressPercentageMobile) {
+        progressPercentageMobile.textContent = `${percentage}%`;
+    }
 }
 
 function displayMaterials(materialsToShow) {

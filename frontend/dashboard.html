@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dashboard - Main Web</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-dashboard.css">
 </head>
 <body class="dashboard-page">
     <nav class="top-nav">
@@ -12,7 +13,12 @@
             <span class="logo">🚀</span>
             <span class="brand-name">Main Web</span>
         </div>
-        <div class="nav-actions">
+        <button class="hamburger-menu" id="hamburgerMenu" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-actions" id="navActions">
             <a href="leaderboard.html" class="nav-link">🏆 Leaderboard</a>
             <a href="profile.html" class="nav-link">👤 Profil</a>
             <a href="admin.html" class="nav-link" id="adminLink" style="display:none;">⚙️ Admin Panel</a>
@@ -68,6 +74,11 @@
                     </svg>
                     <div class="progress-percentage" id="progressPercentage">0%</div>
                 </div>
+                <!-- Progress Bar for Mobile -->
+                <div class="progress-bar-mobile" style="display:none;">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
+                <div class="progress-percentage-mobile" id="progressPercentageMobile" style="display:none;">0%</div>
             </div>
 
             <div class="badges-preview">
