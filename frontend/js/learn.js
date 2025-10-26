@@ -98,14 +98,171 @@ function displayMaterial(material) {
 }
 
 function parseMarkdown(text) {
-    return text
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-        .replace(/\*(.*)\*/gim, '<em>$1</em>')
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-        .replace(/\n/gim, '<br>');
+    if (!text) return '';
+    
+    // Helper function to escape HTML
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+    
+    // Store code blocks temporarily to prevent them from being processed
+    const codeBlocks = [];
+    let codeBlockIndex = 0;
+    
+    // Extract and store code blocks (```language ... ```)
+    text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, language, code) => {
+        const placeholder = `___CODE_BLOCK_${codeBlockIndex}___`;
+        codeBlocks.push({
+            language: language || '',
+            code: escapeHtml(code.trim())
+        });
+        codeBlockIndex++;
+        return placeholder;
+    });
+    
+    // Store inline code temporarily
+    const inlineCodes = [];
+    let inlineCodeIndex = 0;
+    text = text.replace(/`([^`\n]+)`/g, (match, code) => {
+        const placeholder = `___INLINE_CODE_${inlineCodeIndex}___`;
+        inlineCodes.push(escapeHtml(code));
+        inlineCodeIndex++;
+        return placeholder;
+    });
+    
+    // Parse paragraphs and line breaks
+    const lines = text.split('\n');
+    const parsed = [];
+    let inList = false;
+    let listType = null;
+    
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        
+        // Skip empty lines
+        if (line.trim() === '') {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+                listType = null;
+            }
+            parsed.push('');
+            continue;
+        }
+        
+        // Headers
+        if (line.startsWith('# ')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(`<h1>${line.substring(2).trim()}</h1>`);
+        } else if (line.startsWith('## ')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(`<h2>${line.substring(3).trim()}</h2>`);
+        } else if (line.startsWith('### ')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(`<h3>${line.substring(4).trim()}</h3>`);
+        } else if (line.startsWith('#### ')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(`<h4>${line.substring(5).trim()}</h4>`);
+        }
+        // Unordered list
+        else if (line.match(/^[\*\-\+]\s/)) {
+            if (!inList || listType !== 'ul') {
+                if (inList) parsed.push('</ol>');
+                parsed.push('<ul>');
+                inList = true;
+                listType = 'ul';
+            }
+            parsed.push(`<li>${line.substring(2).trim()}</li>`);
+        }
+        // Ordered list
+        else if (line.match(/^\d+\.\s/)) {
+            if (!inList || listType !== 'ol') {
+                if (inList) parsed.push('</ul>');
+                parsed.push('<ol>');
+                inList = true;
+                listType = 'ol';
+            }
+            parsed.push(`<li>${line.replace(/^\d+\.\s/, '').trim()}</li>`);
+        }
+        // Blockquote
+        else if (line.startsWith('> ')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(`<blockquote>${line.substring(2).trim()}</blockquote>`);
+        }
+        // Horizontal rule
+        else if (line.match(/^[\-\*_]{3,}$/)) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push('<hr>');
+        }
+        // Code block placeholder
+        else if (line.includes('___CODE_BLOCK_')) {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+            }
+            parsed.push(line);
+        }
+        // Regular paragraph
+        else {
+            if (inList) {
+                parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+                inList = false;
+                listType = null;
+            }
+            parsed.push(`<p>${line}</p>`);
+        }
+    }
+    
+    // Close any open list
+    if (inList) {
+        parsed.push(listType === 'ul' ? '</ul>' : '</ol>');
+    }
+    
+    let result = parsed.join('\n');
+    
+    // Apply text formatting (bold, italic, etc)
+    result = result
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/~~(.+?)~~/g, '<del>$1</del>');
+    
+    // Restore inline code
+    inlineCodes.forEach((code, index) => {
+        result = result.replace(`___INLINE_CODE_${index}___`, `<code>${code}</code>`);
+    });
+    
+    // Restore code blocks
+    codeBlocks.forEach((block, index) => {
+        result = result.replace(
+            `___CODE_BLOCK_${index}___`,
+            `<pre><code>${block.code}</code></pre>`
+        );
+    });
+    
+    return result;
 }
 
 async function loadRelatedLessons(category) {
