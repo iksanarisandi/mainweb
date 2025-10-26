@@ -193,8 +193,10 @@ Built with ❤️ using:
 
 ## 🌐 Live URLs
 
-- **Frontend:** https://077a263e.mainweb-2i7.pages.dev
+- **Frontend:** https://11fbec00.mainweb-2i7.pages.dev
 - **Backend API:** https://mainweb-workers.threadsauto.workers.dev
 - **GitHub Repository:** https://github.com/iksanarisandi/mainweb
+
+> **Note:** Landing page statistics (542 Learners, 3,247 Lessons Completed) are static professional numbers for marketing purposes. These provide consistent social proof without requiring real-time API access.
 
 Made with 🚀 by the Main Web Team
